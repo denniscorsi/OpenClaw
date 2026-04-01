@@ -1,0 +1,10 @@
+{
+  "name": "get_time",
+  "description": "Get the current date and time",
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "command": "date"
+}
