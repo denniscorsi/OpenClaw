@@ -43,7 +43,6 @@ challenges/
 │
 ├── ext-01-skills-system/  Extension 01 — extend with markdown skill files
 ├── ext-02-ralph-loop/     Extension 02 — build a long-running agent
-└── ext-03-self-improving/ Extension 03 — give the agent the ability to extend itself
 ```
 
 Open the `README.md` inside each folder to get started.
@@ -97,9 +96,6 @@ Write a markdown file. Drop it in a folder. Your agent gains a new capability �
 
 **Extension 02 — The Ralph Loop**
 Long tasks break agents. Context windows fill up, the model loses track, quality degrades. The solution: reload the goal and progress from files on every iteration. Use git commits as checkpoints. The agent can now work for hours without context rot.
-
-**Extension 03 — Self-Improving Agent**
-Skills let the agent behave differently. Plugins let it gain genuinely new tools — defined as JSON files with bash command templates. Both reload on every turn, so the agent can create a new capability during one response and use it immediately in the next. The core loop in `agent.ts` is made read-only, so all growth happens through new files.
 
 ---
 

@@ -1,28 +1,21 @@
 import { readdirSync } from "fs";
 import { join } from "path";
 
-const MODEL = "openrouter/free";
-const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-const SKILLS_DIR = join(import.meta.dir, "skills");
-
-const BASH_TOOL_DEFINITION = {
+const BASH_TOOL = {
   type: "function",
   function: {
     name: "bash",
     description: "Run a bash command on the local machine",
     parameters: {
       type: "object",
-      properties: {
-        command: { type: "string", description: "The bash command to execute" },
-      },
+      properties: { command: { type: "string", description: "The bash command to execute" } },
       required: ["command"],
     },
   },
 };
 
-const skillFiles = readdirSync(SKILLS_DIR).filter((f) => f.endsWith(".md"));
-const skillTexts = await Promise.all(skillFiles.map((f) => Bun.file(join(SKILLS_DIR, f)).text()));
-const skills = skillTexts.join("\n\n");
+const skillFiles = readdirSync(join(import.meta.dir, "../skills")).filter((f) => f.endsWith(".md"));
+const skills = (await Promise.all(skillFiles.map((f) => Bun.file(join(import.meta.dir, "../skills", f)).text()))).join("\n\n");
 
 const messages: any[] = [
   {
@@ -36,20 +29,19 @@ for await (const line of console) {
 
   while (true) {
     const data = await (
-      await fetch(API_URL, {
+      await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` },
         body: JSON.stringify({
-          model: MODEL,
+          model: "openrouter/free",
           reasoning: { exclude: true },
           messages,
-          tools: [BASH_TOOL_DEFINITION],
+          tools: [BASH_TOOL],
         }),
       })
     ).json();
+
+    if (!data.choices) { console.error("API error:", JSON.stringify(data)); break; }
 
     const message = data.choices[0].message;
 

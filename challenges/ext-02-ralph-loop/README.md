@@ -64,7 +64,7 @@ Watch `PROGRESS.md` grow. After 2–3 iterations the agent should complete the t
 - `import.meta.dir` gives you the absolute path to the directory containing the current file. Use it to build paths to `PROMPT.md` and `PROGRESS.md`.
 - `Bun.file(path).text()` is the cleanest way to read files. Wrap it in try/catch for PROGRESS.md in case it doesn't exist.
 - For `saveProgress`, use `Bun.write` to append — or read the file, concatenate, then write.
-- For the git commit: `await Bun.$\`git add PROGRESS.md && git commit -m "progress: ..."\`.catch(() => {})`  — swallow git errors (e.g., if git isn't configured) so the loop doesn't crash.
+- For the git commit: `await Bun.$\`git add PROGRESS.md && git commit -m "progress: ..."\`.catch(() => {})` — swallow git errors (e.g., if git isn't configured) so the loop doesn't crash.
 - The system prompt for each iteration should include both the goal and the progress log so the model knows where it left off.
 
 ---
@@ -74,5 +74,3 @@ Watch `PROGRESS.md` grow. After 2–3 iterations the agent should complete the t
 It's named after the idea that agents need to "ralph" (restart fresh) periodically to stay coherent, rather than accumulating stale context indefinitely. Clear state, clear thinking.
 
 ---
-
-**Extension 03** goes further — giving the agent the ability to extend its own toolset by creating new files, with the core loop permanently protected.
