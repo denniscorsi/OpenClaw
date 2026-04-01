@@ -21,9 +21,11 @@ description: Record voice from the microphone and convert it to text using Whisp
 # Whisper Voice Transcriber
 
 ## When to activate
+
 - User says "transcribe", "voice note", "dictate"...
 
 ## Exact commands the agent must output
+
 ffmpeg -f avfoundation -i ":0" -t 15 ...
 ```
 
@@ -70,6 +72,8 @@ The only new piece is the skill loading at the top — the rest is identical to 
 bun run challenges/ext-01-skills-system/agent.ts
 ```
 
+Make sure that the skill worked by checking for a log file after execution.
+
 ---
 
 ## Hints
@@ -78,19 +82,16 @@ bun run challenges/ext-01-skills-system/agent.ts
 - Build the full path with `join(skillsDir, filename)` — import `join` from `"path"`.
 - `Bun.file(path).text()` returns a `Promise<string>`. Use `await` or `Promise.all`.
 - The system prompt structure should be something like: `"You are a helpful agent... Here are your skills:\n\n${skills}\n\nWhen running commands, use the bash tool."`
-- `getSystemPrompt()` should return the exact string you put in the system message's `content`.
 
 ---
 
-## Why Skills Beat Manual Integration
+## Bonus
 
-Compare these two approaches for adding voice transcription:
+Write your own skill file and drop it in the `skills/` folder. Some ideas to get you started:
 
-**Without skills**: Add a new API call to Whisper, parse its response, wire it into the agent loop, add a trigger condition...
-
-**With skills**: Write `whisper-transcriber.md`. Drop it in the skills folder. Done.
-
-The model understands the instructions and will figure out how to integrate them into its planning. This is what makes agent systems powerful — the model's language understanding replaces integration code.
+- **Always explain** — before running any command, the agent must print a one-sentence plain-English explanation of what it's about to do and why
+- **Safe mode** — the agent must never run commands with `sudo`, never delete files, and must ask for confirmation before any destructive operation
+- **Voice input** — record audio from the microphone with `ffmpeg` and transcribe it with `whisper`, triggered when the user says "transcribe", "dictate", or "voice note"
 
 ---
 
