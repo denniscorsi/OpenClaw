@@ -1,6 +1,3 @@
-const MODEL = "openrouter/free";
-const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-
 const BASH_TOOL = {
   type: "function",
   function: {
@@ -27,14 +24,11 @@ for await (const line of console) {
 
   while (true) {
     const data = await (
-      await fetch(API_URL, {
+      await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` },
         body: JSON.stringify({
-          model: MODEL,
+          model: "openrouter/free",
           reasoning: { exclude: true },
           messages,
           tools: [BASH_TOOL],

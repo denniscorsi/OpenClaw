@@ -10,6 +10,6 @@
 //           (same fetch call as challenge 03, but pass messages instead of a single prompt)
 //           include reasoning: { exclude: true } in the body
 //     TODO: Get message = data.choices[0].message
-//     TODO: Push message to messages  ← do this BEFORE the try/catch
+//     TODO: Push message to messages
 //     TODO: try: execute message.content with Bun.$`sh -c ${...}` and break on success
 //     TODO: catch: push the error back as { role: "user", content: `Command failed: ${error.message}` }

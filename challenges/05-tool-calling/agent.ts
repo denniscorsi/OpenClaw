@@ -1,6 +1,3 @@
-const MODEL = "openrouter/free";
-const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-
 const BASH_TOOL = {
   type: "function",
   function: {
@@ -20,7 +17,7 @@ const BASH_TOOL = {
 // TODO: Start a `for await (const line of console)` loop to read user input
 //   TODO: Push { role: "user", content: line } to messages
 //   TODO: Start a while (true) loop
-//     TODO: POST to API_URL with messages, tools: [BASH_TOOL], and reasoning: { exclude: true }
+//     TODO: POST to the API with messages, tools: [BASH_TOOL], and reasoning: { exclude: true }
 //     TODO: Get message = data.choices[0].message
 //     TODO: if (message.tool_calls):
 //             - Push message to messages

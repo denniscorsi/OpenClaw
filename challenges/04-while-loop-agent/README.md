@@ -50,8 +50,6 @@ Open `agent.ts` and write a script that:
 5. If execution succeeds — `break` out of the while loop
 6. If execution fails — push the error back as a `{ role: "user" }` message and let the loop try again
 
-The key insight: `messages.push(message)` should happen **before** the try/catch, so the assistant's response is always saved to history regardless of whether the command works.
-
 ---
 
 ## Running Your Code

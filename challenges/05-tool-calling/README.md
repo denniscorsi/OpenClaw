@@ -86,7 +86,6 @@ The model reads this as "here's what happened when I ran that command." Without 
 - The system prompt matters more than you'd think. Tell the model it's running **locally on the user's Mac** with full access to their display and filesystem, and that it should always attempt tasks rather than explain why they might not work. Without this, models get overly cautious.
 - `Bun.$\`sh -c ${command}\`.text()` returns a promise that resolves to a string. Append `.catch((e) => e.stderr || e.message)` to handle errors without throwing.
 - `JSON.parse(toolCall.function.arguments)` gives you the structured arguments object — `const { command } = JSON.parse(...)`.
-- `message.tool_calls` is either an array or `undefined` — checking `if (message.tool_calls)` is enough.
 - The tool result message needs all three fields: `role: "tool"`, `tool_call_id: toolCall.id`, and `content: result`.
 
 ---

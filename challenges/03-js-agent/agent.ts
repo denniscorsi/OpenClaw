@@ -3,7 +3,7 @@
 //         - model: "openrouter/free"
 //         - reasoning: { exclude: true }
 //         - messages: an array with one user message asking for a mac bash
-//           command to take a screenshot (raw string only, no markdown)
+//           command to take a screenshot
 
 // TODO: Parse the response JSON and extract the command from
 //       data.choices[0].message.content
