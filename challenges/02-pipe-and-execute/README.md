@@ -11,13 +11,13 @@ This challenge is **terminal-only**. Paste the commands and observe what happens
 The `|` character in bash is called a **pipe**. It takes the output of one command and feeds it as input to the next command.
 
 ```bash
-echo "hello world" | tr '[:lower:]' '[:upper:]'
-# Output: HELLO WORLD
+echo "hello world" | wc -w
+# Output: 2
 ```
 
-Here `echo "hello world"` prints the string, and the pipe sends it to `tr` — a tool that **tr**anslates characters. `'[:lower:]'` and `'[:upper:]'` are character classes meaning "all lowercase letters" and "all uppercase letters" respectively. So `tr '[:lower:]' '[:upper:]'` means: replace every lowercase character with its uppercase equivalent.
+Here `echo "hello world"` prints the string, and the pipe sends it to `wc` — a tool that **c**ounts **w**ords, lines, and characters. The `-w` flag means "count words only".
 
-The point isn't `tr` specifically — it's the pipe. The output of one command becomes the input of the next. You can chain as many as you like.
+The point isn't `wc` specifically — it's the pipe. The output of one command becomes the input of the next. You can chain as many as you like.
 
 ---
 
@@ -78,8 +78,6 @@ You should see a nicely formatted JSON response. Find the `choices` array and lo
 
 You know from Step 1 where the command lives in the JSON. Now modify the command above to pipe into `jq -r` and extract just that string, so the output is the plain command — not the full JSON blob.
 
-> **Hint**: the jq filter you want follows the path `choices[0].message.content`
-
 Check your work — your output should look something like:
 
 ```
@@ -92,7 +90,7 @@ screencapture screenshot.png
 
 Now extend your command from Step 2 with one more pipe to actually run the command.
 
-> **Hint**: what did you pipe to in Challenge 01 Step 2 to make a POST request?
+> **Hint**: the `bash` command will run whatever command is piped into it.
 
 A screenshot file should appear in your current directory.
 
@@ -109,20 +107,10 @@ If you get stuck, check the `solution/` folder.
 Piping AI output directly to `bash` is powerful — and dangerous if you're not careful. The model could return a command you don't want to run.
 
 In production AI systems, you always want to:
+
 1. Show the user what's about to run before executing it
 2. Sandbox execution where possible
 3. Validate commands before running them
-
-This workshop will cover safer patterns in later challenges (tool calling gives you explicit control over this).
-
----
-
-## Reflection Questions
-
-1. What does `.choices[0].message.content` mean as a jq path? Break it down piece by piece.
-2. Why does `-r` matter? Try removing it — what changes?
-3. What would happen if the model returned a multi-line response? Would it still work?
-4. How would you modify this to ask the model for a different kind of task?
 
 ---
 

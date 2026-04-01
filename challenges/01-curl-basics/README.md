@@ -68,10 +68,16 @@ curl https://openrouter.ai/api/v1/chat/completions \
        "reasoning": {"exclude": true}}'
 ```
 
+The body now has two fields:
+
+- **`model`** — which AI model to use. `"openrouter/free"` is a special OpenRouter ID that automatically routes to whichever capable free model is available at the time. You could swap this for `"anthropic/claude-sonnet-4-5"` or `"openai/gpt-4o"` if you had credits.
+
+- **`reasoning`** — some free models are _reasoning models_ that think step-by-step internally before responding. By default they include that reasoning chain in the response, which can come back as a `null` content field and break our code. Setting `{"exclude": true}` tells the API to strip the reasoning out and give us just the final answer.
+
 Another new error:
 
 ```json
-{"error":{"message":"Input required: specify \"prompt\" or \"messages\"","code":400}}
+{ "error": { "message": "Input required: specify \"prompt\" or \"messages\"", "code": 400 } }
 ```
 
 You're now authenticated and the method is correct — the API just needs to know what to actually say to the model.
@@ -118,7 +124,7 @@ The text you care about is at `choices[0].message.content`. The model's reply is
 
 ## Step 6 — Ask for Something Useful
 
-Now that you understand the structure, ask the model for a bash command. Tell it to return only the raw command — no explanation, no markdown:
+Now that you understand the structure, ask the model for a bash command. Tell it to return only the raw command:
 
 ```bash
 curl https://openrouter.ai/api/v1/chat/completions \
@@ -141,7 +147,6 @@ Find `choices[0].message.content` in the response. That's a bash command the mod
 1. Why does the API require an `Authorization` header? What would happen if it didn't?
 2. What does the `messages` field being an **array** suggest about how conversations work?
 3. Why is the response wrapped in `"choices"` (an array) rather than just returning the message directly?
-4. You sent `role: "user"` and got back `role: "assistant"`. What other roles might exist, and what might they be used for?
 
 ---
 

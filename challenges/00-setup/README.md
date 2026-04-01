@@ -39,17 +39,15 @@ OpenRouter gives you access to many AI models (Claude, GPT-4, Gemini, and more) 
 
 ## Free Models vs. Paid Models
 
-OpenRouter offers free models — no credit card needed. The challenges use the model ID `openrouter/free`, which is OpenRouter's own router that automatically picks from whatever free models are currently available. This means it will always work even as individual free models are added or removed.
+OpenRouter offers free models. The challenges use the model ID `openrouter/free`, which is OpenRouter's own router that automatically picks from whatever free models are currently available. This means it will always work even as individual free models are added or removed.
 
 **Free tier limitations:**
-- 20 requests per minute
-- 200 requests per day
+
+- Rate limited (the API response in Step 4 will show your exact limit)
 - Free models can occasionally be slow or unavailable during high demand
 - Not all free models support tool calling (used from Challenge 05 onward) — if you hit issues in later challenges, see the note below
 
 **If `openrouter/free` doesn't support tool calling for your request**, you can browse [openrouter.ai/models](https://openrouter.ai/models?supported_parameters=tools) and filter by "Free" and "Tools" to find a specific free model that supports it. Then swap the `MODEL` constant at the top of the relevant `agent.ts` file.
-
-200 requests per day is more than enough to complete all the challenges — a full run-through typically uses around 20–40 requests.
 
 **If you'd rather not deal with free tier limitations**, you can add a small amount of credits to your OpenRouter account — a few dollars will cover the entire workshop many times over. Then change the `MODEL` constant at the top of any `agent.ts` file to a paid model like `anthropic/claude-sonnet-4-5`.
 
@@ -116,10 +114,11 @@ If you see your key's label and `"is_free_tier": true`, you're ready. Move on to
 **If you see this instead:**
 
 ```json
-{"error":{"message":"Missing Authentication header","code":401}}
+{ "error": { "message": "Missing Authentication header", "code": 401 } }
 ```
 
 Your key isn't being picked up. Check that you ran the `export` command from Step 3 in this same terminal window, and that the key value is correct.
 
 **Other errors:**
+
 - `curl: (6) Could not resolve host` — check your internet connection.

@@ -1,8 +1,6 @@
 # OpenClaw
 
-Build your own AI agent from scratch — starting from a single terminal command, ending with a working tool-calling agent in under 50 lines of JavaScript. Extensions go further.
-
-This is a hands-on workshop. Every challenge builds on the last. By the end, you will have written a working AI coding agent in just 20 lines of JavaScript.
+Build your own AI agent from scratch — starting from a single terminal command, ending with a working tool-calling agent in only 20 lines of JavaScript!
 
 ---
 
@@ -18,7 +16,7 @@ An AI agent is a program that:
 
 That's it. No magic. The sophistication comes from the loop, the message history, and the tools you give it.
 
-By the end of this workshop you'll understand exactly how tools like Claude Code, Cursor, and Devin work under the hood — because you'll have built the same architecture yourself.
+By the end of this workshop you'll understand exactly how tools like Claude Code and Cursor work under the hood — because you'll have built the same architecture yourself.
 
 ---
 
@@ -102,12 +100,6 @@ Long tasks break agents. Context windows fill up, the model loses track, quality
 
 **Extension 03 — Self-Improving Agent**
 Skills let the agent behave differently. Plugins let it gain genuinely new tools — defined as JSON files with bash command templates. Both reload on every turn, so the agent can create a new capability during one response and use it immediately in the next. The core loop in `agent.ts` is made read-only, so all growth happens through new files.
-
----
-
-## A Note on Models
-
-The challenges use `anthropic/claude-sonnet-4-5` via OpenRouter. This model is capable, affordable, and follows tool calling reliably. You can swap it for any OpenRouter-compatible model in the `MODEL` constant at the top of each `agent.ts` file.
 
 ---
 
